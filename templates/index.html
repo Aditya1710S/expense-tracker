@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-chart-line"></i> Expense Tracker</h1>
+        </header>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="card income">
+                <i class="fas fa-arrow-down"></i>
+                <div>
+                    <h3 id="totalIncome">₹0.00</h3>
+                    <span>Total Income</span>
+                </div>
+            </div>
+            <div class="card expense">
+                <i class="fas fa-arrow-up"></i>
+                <div>
+                    <h3 id="totalExpense">₹0.00</h3>
+                    <span>Total Expense</span>
+                </div>
+            </div>
+            <div class="card balance">
+                <i class="fas fa-wallet"></i>
+                <div>
+                    <h3 id="balance">₹0.00</h3>
+                    <span>Balance</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <input type="date" id="dateFrom" placeholder="From Date">
+            <input type="date" id="dateTo" placeholder="To Date">
+            <input type="text" id="categoryFilter" placeholder="Filter by category...">
+            <button onclick="loadTransactions()">
+                <i class="fas fa-search"></i> Filter
+            </button>
+            <button onclick="clearFilters()" class="clear-btn">
+                <i class="fas fa-times"></i> Clear
+            </button>
+        </div>
+
+        <!-- Add Transaction Form -->
+        <div class="form-container">
+            <form id="transactionForm">
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select id="type" required onchange="updateCategories()">
+                            <option value="">Select Type</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="category" required>
+                            <option value="">Select Category</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Amount (₹)</label>
+                        <input type="number" id="amount" step="0.01" min="0.01" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="description" rows="2" placeholder="Optional description..."></textarea>
+                </div>
+                <button type="submit">
+                    <i class="fas fa-plus"></i> Add Transaction
+                </button>
+            </form>
+        </div>
+
+        <!-- Transactions Table -->
+        <div class="table-container">
+            <div class="table-header">
+                <h3>Transactions <span id="transactionCount">0</span></h3>
+                <button onclick="loadTransactions()" class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <table id="transactionsTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionsBody">
+                    <tr>
+                        <td colspan="6" class="no-data">No transactions found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
